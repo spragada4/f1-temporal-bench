@@ -98,6 +98,42 @@ pytest
 Tagged pushes (`vX.Y.Z`) trigger an automated build, PyPI publish, and
 GitHub Release via GitHub Actions. See `.github/workflows/release.yml`.
 
+**Before tagging, always bump the version in `pyproject.toml` first.**
+PyPI permanently rejects re-uploads of a version number that already
+exists — if the tag doesn't match a version bump, the release workflow
+fails at the publish step and never reaches the GitHub Release step
+either (since publish runs first).
+
+Checklist for cutting a release:
+
+```bash
+# 1. Bump the version
+grep version pyproject.toml   # confirm current version
+sed -i '' 's/version = "OLD"/version = "NEW"/' pyproject.toml
+
+# 2. Commit and push the bump
+git add pyproject.toml
+git commit -m "Bump version to NEW"
+git push origin main
+
+# 3. Tag and push the tag
+git tag vNEW
+git push origin vNEW
+
+# 4. Watch the Actions tab until both the PyPI publish
+#    and GitHub Release steps go green
+```
+
+If a tag was pushed with the wrong version already baked in, delete and
+recreate it after fixing the version:
+
+```bash
+git tag -d vNEW
+git push origin :refs/tags/vNEW
+git tag vNEW
+git push origin vNEW
+```
+
 ## Roadmap
 
 - [ ] Automated dataset updates via GitHub Actions after each race
