@@ -15,9 +15,9 @@ knows what it knows, or confidently guesses.
 
 ## Install
 
-\`\`\`bash
+```bash
 pip install f1-temporal-bench
-\`\`\`
+```
 
 ## Setup
 
@@ -28,9 +28,9 @@ Providers** permission enabled.
    (the default "Read" preset includes this)
 2. Export it in your shell:
 
-\`\`\`bash
+```bash
 export HF_TOKEN=hf_your_token_here
-\`\`\`
+```
 
 3. Make sure at least one Inference Provider is enabled on your account at
    [huggingface.co/settings/inference-providers](https://huggingface.co/settings/inference-providers).
@@ -39,7 +39,7 @@ export HF_TOKEN=hf_your_token_here
 
 ## Usage
 
-\`\`\`bash
+```bash
 # Check the dataset is well-formed
 f1-temporal-bench validate
 
@@ -49,16 +49,16 @@ f1-temporal-bench run --model Qwen/Qwen2.5-7B-Instruct --output results.json
 # Evaluate a model locally instead (requires the 'local-models' extra)
 pip install "f1-temporal-bench[local-models]"
 f1-temporal-bench run --model Qwen/Qwen2.5-7B-Instruct --local
-\`\`\`
+```
 
 ### Picking a model
 
 Not every model on the Hub is served by an Inference Provider. Before
 running an eval, you can check what's live for a given model:
 
-\`\`\`bash
+```bash
 curl -s "https://huggingface.co/api/models/MODEL_ID?expand[]=inferenceProviderMapping" | python3 -m json.tool
-\`\`\`
+```
 
 Look for an entry with `"status": "live"` — that's the provider that will
 serve the request.
@@ -75,15 +75,15 @@ serve the request.
 Add new rows to `data/questions.jsonl` after each race weekend. Each row
 follows this schema:
 
-\`\`\`json
+```json
 {"id": "unique-id", "date": "YYYY-MM-DD", "question": "...", "answer": "...", "aliases": ["..."], "category": "...", "season": 2026, "round": 1}
-\`\`\`
+```
 
 Run `f1-temporal-bench validate` before committing.
 
 ## Development
 
-\`\`\`bash
+```bash
 git clone https://github.com/spragada4/f1-temporal-bench.git
 cd f1-temporal-bench
 python3 -m venv .venv
@@ -91,7 +91,7 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -e ".[dev]"
 pytest
-\`\`\`
+```
 
 ## Releases
 
