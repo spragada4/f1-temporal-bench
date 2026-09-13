@@ -5,15 +5,23 @@ from huggingface_hub import InferenceClient
 
 
 def query_hf_inference(model_id: str, question: str, token: str | None = None) -> str:
-    """Query a model via the Hugging Face Inference API."""
+    """Query a model via the Hugging Face Inference API (chat completion)."""
     token = token or os.environ.get("HF_TOKEN")
-    client = InferenceClient(model=model_id, token=token)
-    prompt = (
-        f"Answer the following question in one short phrase, "
-        f"with no explanation.\nQuestion: {question}\nAnswer:"
+    client = InferenceClient(provider="featherless-ai", token=token)
+    response = client.chat_completion(
+        model=model_id,
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    f"Answer the following question in one short phrase, "
+                    f"with no explanation.\nQuestion: {question}"
+                ),
+            }
+        ],
+        max_tokens=30,
     )
-    response = client.text_generation(prompt, max_new_tokens=30)
-    return response.strip()
+    return response.choices[0].message.content.strip()
 
 
 def query_local_model(model_id: str, question: str) -> str:
