@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "f1-temporal-bench"
-version = "0.1.0"
+version = "0.1.2"
 description = "A benchmark for evaluating temporal knowledge and hallucination in language models, using Formula 1 as a fast-changing ground truth domain."
 readme = "README.md"
 requires-python = ">=3.10"
