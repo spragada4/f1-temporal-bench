@@ -26,3 +26,6 @@ results/
 # Editor/IDE
 .vscode/
 .idea/
+
+*.orig
+*.bak
