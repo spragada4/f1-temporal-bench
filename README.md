@@ -70,6 +70,13 @@ serve the request.
   instead of hedging
 - **Refusal rate** — model declines to answer / says it doesn't know
 
+## Dataset
+
+The question set is also published as a dataset on the Hugging Face Hub:
+[spragada4/f1-temporal-bench](https://huggingface.co/datasets/spragada4/f1-temporal-bench).
+It's kept in sync with `data/questions.jsonl` in this repo — push updates
+with `python scripts/push_to_hub.py` after adding new questions.
+
 ## Contributing questions
 
 Add new rows to `data/questions.jsonl` after each race weekend. Each row
