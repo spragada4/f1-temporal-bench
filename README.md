@@ -88,6 +88,25 @@ follows this schema:
 
 Run `f1-temporal-bench validate` before committing.
 
+### Automated updates
+
+New race weekends are picked up automatically. A scheduled GitHub Action
+(`.github/workflows/update-dataset.yml`) runs every Monday, pulling the
+latest completed race and standings from the
+[Jolpica-F1 API](https://github.com/jolpica/jolpica-f1) — the free,
+open-source successor to the now-deprecated Ergast API. If there's a new
+race since the last run, it appends new questions, validates the
+dataset, commits, and pushes the update to both this repo and the
+[HF Hub dataset](https://huggingface.co/datasets/spragada4/f1-temporal-bench).
+
+You can also trigger it manually from the **Actions** tab, or run it
+locally:
+
+```bash
+python scripts/update_dataset.py
+f1-temporal-bench validate
+```
+
 ## Development
 
 ```bash
@@ -143,9 +162,9 @@ git push origin vNEW
 
 ## Roadmap
 
-- [ ] Automated dataset updates via GitHub Actions after each race
+- [x] Automated dataset updates via GitHub Actions after each race
 - [ ] Multi-model leaderboard published to GitHub Pages
-- [ ] Dataset published on the Hugging Face Hub with versioned season snapshots
+- [x] Dataset published on the Hugging Face Hub
 
 ## License
 
